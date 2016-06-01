@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PictManager
+namespace PictManager.Config
 {
     public class PmConf
     {
@@ -15,7 +15,7 @@ namespace PictManager
         public static void LoadConfig()
         {
             var baseDir = AppDomain.CurrentDomain.BaseDirectory;
-            var confPath = System.IO.Path.Combine(baseDir, "pm.conf");
+            var confPath = System.IO.Path.Combine(baseDir, "Config", "pm.conf");
 
             using (StreamReader sr = new StreamReader(confPath))
             {

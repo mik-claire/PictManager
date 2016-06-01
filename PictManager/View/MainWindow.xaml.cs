@@ -1,4 +1,6 @@
-﻿using PictManager.Util;
+﻿using PictManager.Config;
+using PictManager.Model;
+using PictManager.Util;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,7 +27,6 @@ namespace PictManager
         public MainWindow()
         {
             InitializeComponent();
-
         }
 
         private void load()
@@ -63,6 +64,8 @@ namespace PictManager
             this.DataContext = infoList;
         }
 
+        #region Event Handler
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             try
@@ -76,5 +79,7 @@ namespace PictManager
 
             load();
         }
+
+        #endregion
     }
 }
