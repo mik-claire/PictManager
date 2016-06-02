@@ -15,6 +15,7 @@ namespace PictManager.Model
         public int Id { get; set; }
         public string FileName { get; set; }
         public string DisplayName { get; set; }
+        public string Directory { get; set; }
         public List<string> Tags { get; set; }
 
         public bool IsNewPicture { get; set; }
@@ -28,7 +29,7 @@ namespace PictManager.Model
         {
             get
             {
-                string filePath = Path.Combine(PmConf.Config.DirectoryPath, this.FileName);
+                string filePath = Path.Combine(PmConf.Config.DirectoryPath, this.Directory == null ? string.Empty : this.Directory, this.FileName);
                 return filePath;
             }
         }

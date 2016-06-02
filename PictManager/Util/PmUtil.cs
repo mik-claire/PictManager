@@ -10,7 +10,7 @@ namespace PictManager.Util
     public class PmUtil
     {
         public static readonly string STARTUP_PATH = System.Windows.Forms.Application.StartupPath;
-        public static readonly string DB_PATH = Path.Combine(STARTUP_PATH, "PictData.db");
+        public static readonly string DB_PATH = Path.Combine(STARTUP_PATH, "Config", "PictData.db");
         public static readonly string CONNECTION_STRING = string.Format("Data Source={0};Version=3;", DB_PATH);
 
         public static void ShowError(Exception ex)

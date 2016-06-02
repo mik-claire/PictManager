@@ -43,7 +43,20 @@ namespace PictManager
             List<PictureInfo> infoList = new List<PictureInfo>();
 
             DirectoryInfo di = new DirectoryInfo(PmConf.Config.DirectoryPath);
-            foreach (var fi in di.GetFiles())
+            load2(di, infoList, dbData);
+
+            insert(infoList);
+            this.DataContext = infoList;
+        }
+
+        private void load2(DirectoryInfo di, List<PictureInfo> infoList, List<PictureInfo> dbData)
+        {
+            foreach (DirectoryInfo subDi in di.GetDirectories())
+            {
+                load2(subDi, infoList, dbData);
+            }
+
+            foreach (FileInfo fi in di.GetFiles())
             {
                 if (!File.Exists(fi.FullName))
                 {
@@ -79,12 +92,10 @@ namespace PictManager
                 PictureInfo pi = new PictureInfo();
                 pi.FileName = fi.Name;
                 pi.DisplayName = fi.Name.Substring(0, fi.Name.Length - fi.Extension.Length);
+                pi.Directory = fi.FullName.Substring(PmConf.Config.DirectoryPath.Length + 1, fi.FullName.Length - PmConf.Config.DirectoryPath.Length - fi.Name.Length - 1);
                 pi.IsNewPicture = true;
                 infoList.Add(pi);
             }
-
-            insert(infoList);
-            this.DataContext = infoList;
         }
 
         private void search()
@@ -262,6 +273,7 @@ where
                     PictureInfo pi = new PictureInfo();
                     pi.Id = int.Parse(reader["id"].ToString());
                     pi.FileName = reader["fileName"].ToString();
+                    pi.Directory = reader["directory"].ToString();
                     pi.DisplayName = reader["displayName"].ToString();
                     string[] tags = reader["tags"].ToString().Split(' ');
                     pi.Tags = tags.ToList();
@@ -312,18 +324,21 @@ where
 insert into data (
   fileName,
   displayName,
+  directory,
   tags
 )
 values (
   '{0}',
   '{1}',
-  '{2}'
+  '{2}',
+  '{3}'
 );";
 
                     string tags = string.Join(" ", pi.Tags);
                     sql = string.Format(sql,
                         pi.FileName,
                         pi.DisplayName,
+                        pi.Directory,
                         tags);
 
                     cmd = new SQLiteCommand(sql, cn);
