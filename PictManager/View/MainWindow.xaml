@@ -18,7 +18,7 @@
         <!-- Row 0 -->
         <TextBox x:Name="textBox_Search" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="245" KeyUp="textBox_Search_KeyUp"/>
         <Button x:Name="button_Search" Content="Search" HorizontalAlignment="Left" VerticalAlignment="Top" Width="69" Margin="10,10,0,0" Click="button_Search_Click" Grid.Column="1"/>
-        <RadioButton x:Name="radioButton_FileName" Content="ファイル名" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,38,0,0"/>
+        <RadioButton x:Name="radioButton_FileName" Content="ファイル名" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,38,0,0" IsChecked="True"/>
         <RadioButton x:Name="radioButton_DisplayName" Content="表示名" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="124,38,0,0"/>
         <RadioButton x:Name="radioButton_Tags" Content="タグ" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="215,38,0,0"/>
 
