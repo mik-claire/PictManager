@@ -364,5 +364,14 @@ where id = {1};";
         }
 
         #endregion
+
+		private void textBox_Search_KeyUp(object sender, KeyEventArgs e)
+		{
+			if (e.Key == Key.Enter)
+			{
+				button_Search_Click(new object(), new RoutedEventArgs());
+				return;
+			}
+		}
     }
 }
