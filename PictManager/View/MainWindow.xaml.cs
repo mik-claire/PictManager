@@ -57,6 +57,7 @@ namespace PictManager
                 }
 
                 bool isNewPicture = true;
+                PictureInfo hitRec = new PictureInfo();
                 foreach (var rec in dbData)
                 {
                     if (rec.FileName != fi.Name)
@@ -65,10 +66,12 @@ namespace PictManager
                     }
 
                     isNewPicture = false;
+                    hitRec = rec;
                     break;
                 }
                 if (!isNewPicture)
                 {
+                    infoList.Add(hitRec);
                     continue;
                 }
 
