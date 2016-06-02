@@ -22,8 +22,8 @@
         <RadioButton x:Name="radioButton_DisplayName" Content="表示名" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="124,38,0,0"/>
         <RadioButton x:Name="radioButton_Tags" Content="タグ" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="215,38,0,0"/>
 
-        <TextBox x:Name="textBox_Tags" HorizontalAlignment="Left" Height="23" Margin="10,131,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="245" Grid.Column="2"/>
-        <Button x:Name="button_TagSet" Content="TagSet" HorizontalAlignment="Left" VerticalAlignment="Top" Width="69" Margin="10,96,0,0" Click="button_TagSet_Click" Grid.Column="3" KeyUp="button_TagSet_KeyUp"/>
+        <TextBox x:Name="textBox_Tags" HorizontalAlignment="Left" Height="23" Margin="10,131,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="245" Grid.Column="2" KeyUp="textBox_Tags_KeyUp"/>
+        <Button x:Name="button_TagSet" Content="TagSet" HorizontalAlignment="Left" VerticalAlignment="Top" Width="69" Margin="10,130,0,0" Click="button_TagSet_Click" Grid.Column="3" />
 
         <!-- Row 1 -->
         <ListView x:Name="listView_Picts" Margin="10,10,10.333,10" SelectionMode="Extended" SelectionChanged="listView_Picts_SelectionChanged"
