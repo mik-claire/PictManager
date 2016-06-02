@@ -202,6 +202,15 @@ namespace PictManager
             this.textBox_Tags.Text = tags;
         }
 
+		private void textBox_Search_KeyUp(object sender, KeyEventArgs e)
+		{
+			if (e.Key == Key.Enter)
+			{
+				button_Search_Click(new object(), new RoutedEventArgs());
+				return;
+			}
+		}
+
         #endregion
 
         #region DB Control
@@ -365,11 +374,11 @@ where id = {1};";
 
         #endregion
 
-		private void textBox_Search_KeyUp(object sender, KeyEventArgs e)
+		private void button_TagSet_KeyUp(object sender, KeyEventArgs e)
 		{
 			if (e.Key == Key.Enter)
 			{
-				button_Search_Click(new object(), new RoutedEventArgs());
+				button_TagSet_Click(new object(), new RoutedEventArgs());
 				return;
 			}
 		}
