@@ -31,20 +31,20 @@
         <Style.Resources>
             <l:UriImageConverter x:Key="uriImageConverter"/>
         </Style.Resources>
-        <Setter Property='Padding' Value='3'/>
-        <Setter Property='Margin' Value='5'/>
+        <Setter Property='Padding' Value='1'/>
+        <Setter Property='Margin' Value='1'/>
         <Setter Property='HorizontalContentAlignment' Value='Center'/>
         <Setter Property="ContentTemplate">
             <Setter.Value>
                 <DataTemplate>
                     <Border Background="White">
                         <StackPanel Orientation="Vertical">
-                            <Grid Width="150" Height="126">
-                                <Image Margin="0,3,0,3" Source="{Binding FilePath, IsAsync=True}"
+                            <Grid Width="100" Height="75">
+                                <Image Margin="0,1,0,1" Source="{Binding FilePath, IsAsync=True}"
                                       Width="{Binding PreferredWidth}" Height="{Binding PreferredHeight}"/>
                             </Grid>
                             <TextBlock Text="{Binding DisplayName}" TextWrapping="Wrap" HorizontalAlignment="Center" 
-                                       FontSize="15" Name="PictureInfo" Foreground="Black" Margin="0,0,0,5"/>
+                                       FontSize="12" Name="PictureInfo" Foreground="Black" Margin="0,0,0,2"/>
                         </StackPanel>
                     </Border>
                 </DataTemplate>
