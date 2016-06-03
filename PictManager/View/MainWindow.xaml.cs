@@ -99,9 +99,9 @@ namespace PictManager
             }
         }
 
-        private void search()
+        private void search(string[] keywords)
         {
-            if (this.textBox_Search.Text.Trim() == string.Empty)
+            if (keywords.Length < 1)
             {
                 // Reload
                 load();
@@ -110,7 +110,6 @@ namespace PictManager
 
             string cond = string.Empty;
             string column = string.Empty;
-            string[] words = this.textBox_Search.Text.Trim().Split(' ');
             if ((bool)this.radioButton_FileName.IsChecked)
             {
                 column = "fileName";
@@ -124,7 +123,7 @@ namespace PictManager
                 column = "tags";
             }
 
-            foreach (string word in words)
+            foreach (string word in keywords)
             {
                 if (cond != string.Empty)
                 {
@@ -183,7 +182,8 @@ namespace PictManager
 
             updateTags(pi.Id, string.Join(" ", tags));
 
-            search();
+            string[] keywords = this.textBox_Search.Text.Trim().Split(' ');
+            search(keywords);
         }
 
         /// <summary>
@@ -193,7 +193,8 @@ namespace PictManager
         /// <param name="e"></param>
         private void button_Search_Click(object sender, RoutedEventArgs e)
         {
-            search();
+            string[] keywords = this.textBox_Search.Text.Trim().Split(' ');
+            search(keywords);
         }
 
         /// <summary>
@@ -231,6 +232,29 @@ namespace PictManager
 				return;
 			}
 		}
+
+        private void listView_Picts_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (this.listView_Picts.SelectedItems.Count != 1)
+            {
+                return;
+            }
+
+            PictureInfo pi = this.listView_Picts.SelectedItem as PictureInfo;
+            if (pi == null)
+            {
+                return;
+            }
+
+            string ext = pi.FileName.Substring(pi.FileName.Length - 4, 4).ToUpper();
+            if (ext == ".SAI")
+            {
+                // Open sai
+            }
+
+            PreviewWindow w = new PreviewWindow(pi);
+            w.Show();
+        }
 
         #endregion
 
@@ -398,28 +422,5 @@ where id = {1};";
         }
 
         #endregion
-
-        private void listView_Picts_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            if (this.listView_Picts.SelectedItems.Count != 1)
-            {
-                return;
-            }
-
-            PictureInfo pi = this.listView_Picts.SelectedItem as PictureInfo;
-            if (pi == null)
-            {
-                return;
-            }
-
-            string ext = pi.FileName.Substring(pi.FileName.Length - 4, 4).ToUpper();
-            if (ext == ".SAI")
-            {
-                // Open sai
-            }
-
-            PreviewWindow w = new PreviewWindow(pi);
-            w.Show();
-        }
     }
 }
