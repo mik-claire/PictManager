@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using PictManager.Util;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,10 +18,17 @@ namespace PictManager.Config
             var baseDir = AppDomain.CurrentDomain.BaseDirectory;
             var confPath = System.IO.Path.Combine(baseDir, "Config", "pm.conf");
 
-            using (StreamReader sr = new StreamReader(confPath))
+            try
             {
-                string rte = sr.ReadToEnd().Replace("\\", "\\\\");
-                Config = JsonConvert.DeserializeObject<Conf>(rte);
+                using (StreamReader sr = new StreamReader(confPath))
+                {
+                    string rte = sr.ReadToEnd().Replace("\\", "\\\\");
+                    Config = JsonConvert.DeserializeObject<Conf>(rte);
+                }
+            }
+            catch (Exception ex)
+            {
+                PmUtil.ShowError(ex);
             }
         }
 
