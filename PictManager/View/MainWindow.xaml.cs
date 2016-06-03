@@ -412,6 +412,12 @@ where id = {1};";
                 return;
             }
 
+            string ext = pi.FileName.Substring(pi.FileName.Length - 4, 4).ToUpper();
+            if (ext == ".SAI")
+            {
+                // Open sai
+            }
+
             PreviewWindow w = new PreviewWindow(pi);
             w.Show();
         }
