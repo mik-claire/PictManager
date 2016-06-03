@@ -18,6 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data.SQLite;
+using PictManager.View;
 
 namespace PictManager
 {
@@ -397,5 +398,22 @@ where id = {1};";
         }
 
         #endregion
+
+        private void listView_Picts_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (this.listView_Picts.SelectedItems.Count != 1)
+            {
+                return;
+            }
+
+            PictureInfo pi = this.listView_Picts.SelectedItem as PictureInfo;
+            if (pi == null)
+            {
+                return;
+            }
+
+            PreviewWindow w = new PreviewWindow(pi);
+            w.Show();
+        }
     }
 }

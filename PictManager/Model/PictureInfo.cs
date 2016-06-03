@@ -33,5 +33,14 @@ namespace PictManager.Model
                 return filePath;
             }
         }
+
+        public Uri ImageUri
+        {
+            get
+            {
+                Uri uri = new Uri(this.FilePath);
+                return uri;
+            }
+        }
     }
 }
