@@ -35,6 +35,7 @@ namespace PictManager.Config
         public class Conf
         {
             public string DirectoryPath;
+            public string SaiProgramPath;
         }
     }
 }

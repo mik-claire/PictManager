@@ -19,6 +19,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data.SQLite;
 using PictManager.View;
+using System.Diagnostics;
 
 namespace PictManager
 {
@@ -142,6 +143,19 @@ namespace PictManager
             this.DataContext = dbData;
         }
 
+        private void opnSai(string saiPath, string openFilePath)
+        {
+            ProcessStartInfo info = new ProcessStartInfo();
+            info.FileName = saiPath;
+            info.Arguments = openFilePath;
+
+            using (Process p = new Process())
+            {
+                p.StartInfo = info;
+                p.Start();
+            }
+        }
+
         #region Event Handler
 
         /// <summary>
@@ -247,9 +261,12 @@ namespace PictManager
             }
 
             string ext = pi.FileName.Substring(pi.FileName.Length - 4, 4).ToUpper();
-            if (ext == ".SAI")
+            if (ext == ".SAI" &&
+                !string.IsNullOrEmpty(PmConf.Config.SaiProgramPath))
             {
                 // Open sai
+                opnSai(PmConf.Config.SaiProgramPath, pi.FilePath);
+                return;
             }
 
             PreviewWindow w = new PreviewWindow(pi);
