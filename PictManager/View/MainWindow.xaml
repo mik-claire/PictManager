@@ -23,7 +23,7 @@
         <Button x:Name="button_Search" Content="Search" HorizontalAlignment="Left" VerticalAlignment="Top" Width="69" Margin="10,11,0,0" Click="button_Search_Click" Grid.Column="1"/>
         <RadioButton x:Name="radioButton_FileName" Content="ファイル名" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,38,0,0" IsChecked="True"/>
         <RadioButton x:Name="radioButton_DisplayName" Content="表示名" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="124,38,0,0" Visibility="Hidden" />
-        <RadioButton x:Name="radioButton_Tags" Content="タグ" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="105,41,0,0"/>
+        <RadioButton x:Name="radioButton_Tags" Content="タグ" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="102,38,0,0"/>
 
         <!-- Rename -->
         <Label Content="FileName" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="2" Margin="10,49,0,0"/>
