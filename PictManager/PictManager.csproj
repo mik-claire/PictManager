@@ -80,8 +80,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controls\ImageView.cs" />
-    <Compile Include="Controls\OneWayConverter.cs" />
-    <Compile Include="Controls\UriImageConverter.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
