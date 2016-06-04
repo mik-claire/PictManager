@@ -20,7 +20,7 @@ namespace PictManager.Config
 
             try
             {
-                using (StreamReader sr = new StreamReader(confPath))
+                using (StreamReader sr = new StreamReader(confPath, Encoding.Default))
                 {
                     string rte = sr.ReadToEnd().Replace("\\", "\\\\");
                     Config = JsonConvert.DeserializeObject<Conf>(rte);
