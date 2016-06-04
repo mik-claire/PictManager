@@ -9,7 +9,7 @@
             <RowDefinition/>
             <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
-        <Image Grid.Row="0" Source="{Binding Path=ImageUri, IsAsync=True}" />
+        <Image Grid.Row="0" Source="{Binding Image, IsAsync=True}" />
         <Border Grid.Row="1" BorderBrush="{x:Null}" Background="DimGray" Height="25" VerticalAlignment="Bottom" >
             <TextBlock TextWrapping="NoWrap" Text="{Binding Path=FileName}" Foreground="AliceBlue" TextAlignment="Left" Margin="0,4,0,0" Height="18" VerticalAlignment="Center"/>
         </Border>

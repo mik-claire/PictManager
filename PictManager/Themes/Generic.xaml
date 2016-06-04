@@ -28,9 +28,6 @@
     <Style x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type l:ImageView},
                                         ResourceId=ImageViewItem}"
          TargetType='{x:Type ListViewItem}' BasedOn='{StaticResource {x:Type ListBoxItem}}'>
-        <Style.Resources>
-            <l:UriImageConverter x:Key="uriImageConverter"/>
-        </Style.Resources>
         <Setter Property='Padding' Value='1'/>
         <Setter Property='Margin' Value='1'/>
         <Setter Property='HorizontalContentAlignment' Value='Center'/>
