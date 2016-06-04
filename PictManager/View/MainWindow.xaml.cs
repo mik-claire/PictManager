@@ -94,8 +94,8 @@ namespace PictManager
                 // load
                 PictureInfo pi = new PictureInfo();
                 pi.FileName = fi.Name;
-                pi.DisplayName = fi.Name.Substring(0, fi.Name.Length - fi.Extension.Length);
-                pi.Directory = fi.FullName.Substring(PmConf.Config.DirectoryPath.Length + 1, fi.FullName.Length - PmConf.Config.DirectoryPath.Length - fi.Name.Length - 1);
+                pi.DisplayName = PmUtil.RemoveExtention(fi.Name);
+                pi.Directory = PmUtil.GetPictureDirectory(fi.FullName);
                 pi.IsNewPicture = true;
                 infoList.Add(pi);
             }

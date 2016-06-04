@@ -29,12 +29,6 @@ namespace PictManager.Controls
                 }
 
                 return src;
-                /*
-                return new BitmapImage(input)
-                {
-                    CacheOption = BitmapCacheOption.OnDemand,
-                };
-                */
             }
             catch (Exception)
             {

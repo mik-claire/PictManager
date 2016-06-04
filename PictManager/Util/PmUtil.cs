@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PictManager.Config;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -44,6 +45,35 @@ namespace PictManager.Util
             string withoutExt = fileName.Substring(0, fileName.Length - ext.Length);
 
             return withoutExt;
+        }
+
+        public static string GetParentDirectoryName(string filePath)
+        {
+            string[] ary = filePath.Split('\\');
+            if (ary.Length < 2)
+            {
+                return string.Empty;
+            }
+
+            return ary[ary.Length - 2];
+        }
+
+        public static string GetPictureDirectory(string FilePath)
+        {
+            string[] ary = FilePath.Split('\\');
+            if (ary.Length < 2)
+            {
+                return string.Empty;
+            }
+
+            string[] pictureDirectoryAry = PmConf.Config.DirectoryPath.Split('\\');
+            string dir = string.Empty;
+            for (int i = pictureDirectoryAry.Length; i < ary.Length - 1; i++)
+            {
+                dir = Path.Combine(dir, ary[i]);
+            }
+
+            return dir;
         }
     }
 }
