@@ -75,7 +75,8 @@ namespace PictManager
                 PictureInfo hitRec = new PictureInfo();
                 foreach (var rec in dbData)
                 {
-                    if (rec.FileName != fi.Name)
+                    if (rec.FileName != fi.Name ||
+                        rec.Directory != fi.FullName.Substring(PmConf.Config.DirectoryPath.Length + 1, fi.FullName.Length - PmConf.Config.DirectoryPath.Length - fi.Name.Length - 1))
                     {
                         continue;
                     }
@@ -102,7 +103,8 @@ namespace PictManager
 
         private void search(string[] keywords)
         {
-            if (keywords.Length < 1)
+            if (keywords.Length == 1 &&
+                string.IsNullOrEmpty(keywords[0]))
             {
                 // Reload
                 load();
@@ -224,6 +226,9 @@ namespace PictManager
             {
                 return;
             }
+
+            string fileName = PmUtil.RemoveExtention(pi.FileName);
+            this.textBox_FileName.Text = fileName;
 
             string tags = string.Join(" ", pi.Tags);
             this.textBox_Tags.Text = tags;
@@ -402,6 +407,45 @@ values (
             }
         }
 
+        private void updateFileName(int index, string fileName, string displayName)
+        {
+            string sql = @"
+update data
+set
+  fileName = '{0}',  
+  displayName = '{1}'
+where id = {2};";
+
+            SQLiteConnection cn = null;
+            SQLiteCommand cmd = null;
+
+            try
+            {
+                cn = new SQLiteConnection(PmUtil.CONNECTION_STRING);
+                cn.Open();
+
+                sql = string.Format(sql,
+                    fileName,
+                    displayName,
+                    index);
+                cmd = new SQLiteCommand(sql, cn);
+
+                cmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                if (cmd != null)
+                {
+                    cmd.Dispose();
+                }
+
+                if (cn != null)
+                {
+                    cn.Close();
+                }
+            }
+        }
+
         private void updateTags(int index, string tags)
         {
             string sql =@"
@@ -439,5 +483,69 @@ where id = {1};";
         }
 
         #endregion
+
+        private void textBox_FileName_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                // button_Rename_Click(new object(), new RoutedEventArgs());
+                return;
+            }
+        }
+
+        /// <summary>
+        /// [ Rename ]
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button_Rename_Click(object sender, RoutedEventArgs e)
+        {
+            PictureInfo pi = this.listView_Picts.SelectedItem as PictureInfo;
+            if (pi == null)
+            {
+                return;
+            }
+
+            string newDisplayName = this.textBox_FileName.Text.Trim();
+            string newFileName = newDisplayName + PmUtil.GetExtention(pi.FileName);
+
+            string message = @"Rename '{0}' -> '{1}' ?";
+            message = string.Format(message,
+                pi.DisplayName,
+                newDisplayName);
+
+            MessageBoxResult  mbr = MessageBox.Show(message,
+                "Confirm.",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+            if (mbr != MessageBoxResult.Yes)
+            {
+                return;
+            }
+
+            try
+            {
+                string filePathDest = System.IO.Path.Combine(PmConf.Config.DirectoryPath, pi.Directory, newFileName);
+                File.Move(pi.FilePath, filePathDest);
+                updateFileName(pi.Id, newFileName, newDisplayName);
+            }
+            catch (Exception ex)
+            {
+                PmUtil.ShowError(ex);
+            }
+
+            MessageBox.Show("Renamed.",
+                "Information.",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information);
+
+            string[] keywords = this.textBox_Search.Text.Trim().Split(' ');
+            search(keywords);
+        }
+
+        private void listView_Picts_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.listView_Picts.SelectedIndex = -1;
+        }
     }
 }

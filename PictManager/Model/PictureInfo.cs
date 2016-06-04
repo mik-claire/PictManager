@@ -1,5 +1,6 @@
 ﻿using PictManager.Config;
 using PictManager.Controls;
+using PictManager.Util;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -40,6 +41,32 @@ namespace PictManager.Model
             {
                 Uri uri = new Uri(this.FilePath);
                 return uri;
+            }
+        }
+
+        public BitmapSource Image
+        {
+            get
+            {
+                using (Stream stream = new FileStream(
+                    this.FilePath,
+                    FileMode.Open,
+                    FileAccess.Read,
+                    FileShare.ReadWrite | FileShare.Delete
+                ))
+                {
+                    // ロックしないように指定したstreamを使用する。
+                    BitmapDecoder decoder = BitmapDecoder.Create(
+                        stream,
+                        BitmapCreateOptions.None, // この辺のオプションは適宜
+                        BitmapCacheOption.Default // これも
+                    );
+                    BitmapSource bmp = new WriteableBitmap(decoder.Frames[0]);
+                    bmp.Freeze();
+
+                    // xamlでImageを記述 → imgSync
+                    return bmp;
+                }
             }
         }
     }

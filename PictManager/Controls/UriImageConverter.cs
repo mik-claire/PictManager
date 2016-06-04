@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,9 +11,9 @@ using System.Windows.Media.Imaging;
 
 namespace PictManager.Controls
 {
-    public class UriImageConverter : OneWayConverter<Uri, BitmapImage>
+    public class UriImageConverter : OneWayConverter<Uri, BitmapSource>
     {
-        public override BitmapImage ToTarget(Uri input, object parameter)
+        public override BitmapSource ToTarget(Uri input, object parameter)
         {
             if (input == null)
             {
@@ -21,10 +22,19 @@ namespace PictManager.Controls
 
             try
             {
+                BitmapSource src = null;
+                using (MemoryStream ms = new MemoryStream(File.ReadAllBytes(input.ToString())))
+                {
+                    src = BitmapFrame.Create(ms);
+                }
+
+                return src;
+                /*
                 return new BitmapImage(input)
                 {
                     CacheOption = BitmapCacheOption.OnDemand,
                 };
+                */
             }
             catch (Exception)
             {

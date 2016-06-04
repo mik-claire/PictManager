@@ -24,5 +24,26 @@ namespace PictManager.Util
                System.Windows.Forms.MessageBoxButtons.OK,
                System.Windows.Forms.MessageBoxIcon.Error);
         }
+
+        public static string GetExtention(string fileName)
+        {
+            string[] ary = fileName.Split('.');
+            if (ary.Length < 1)
+            {
+                return string.Empty;
+            }
+
+            string ext = "." + ary[ary.Length - 1];
+
+            return ext;
+        }
+
+        public static string RemoveExtention(string fileName)
+        {
+            string ext = GetExtention(fileName);
+            string withoutExt = fileName.Substring(0, fileName.Length - ext.Length);
+
+            return withoutExt;
+        }
     }
 }

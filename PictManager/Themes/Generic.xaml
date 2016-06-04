@@ -40,7 +40,7 @@
                     <Border Background="White">
                         <StackPanel Orientation="Vertical">
                             <Grid Width="100" Height="75">
-                                <Image Margin="0,1,0,1" Source="{Binding FilePath, IsAsync=True}"
+                                <Image Margin="0,1,0,1" Source="{Binding Image, IsAsync=True}"
                                       Width="{Binding PreferredWidth}" Height="{Binding PreferredHeight}"/>
                             </Grid>
                             <TextBlock Text="{Binding DisplayName}" TextWrapping="Wrap" HorizontalAlignment="Center" 
