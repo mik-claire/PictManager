@@ -180,7 +180,57 @@ namespace PictManager
         }
 
         /// <summary>
-        /// [ TagSet ]
+        /// [ Rename ]
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button_Rename_Click(object sender, RoutedEventArgs e)
+        {
+            PictureInfo pi = this.listView_Picts.SelectedItem as PictureInfo;
+            if (pi == null)
+            {
+                return;
+            }
+
+            string newDisplayName = this.textBox_FileName.Text.Trim();
+            string newFileName = newDisplayName + PmUtil.GetExtention(pi.FileName);
+
+            string message = @"Rename '{0}' -> '{1}' ?";
+            message = string.Format(message,
+                pi.DisplayName,
+                newDisplayName);
+
+            MessageBoxResult mbr = MessageBox.Show(message,
+                "Confirm.",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+            if (mbr != MessageBoxResult.Yes)
+            {
+                return;
+            }
+
+            try
+            {
+                string filePathDest = System.IO.Path.Combine(PmConf.Config.DirectoryPath, pi.Directory, newFileName);
+                File.Move(pi.FilePath, filePathDest);
+                updateFileName(pi.Id, newFileName, newDisplayName);
+            }
+            catch (Exception ex)
+            {
+                PmUtil.ShowError(ex);
+            }
+
+            MessageBox.Show("Renamed.",
+                "Information.",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information);
+
+            string[] keywords = this.textBox_Search.Text.Trim().Split(' ');
+            search(keywords);
+        }
+
+        /// <summary>
+        /// [ Tag Set ]
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -242,6 +292,15 @@ namespace PictManager
 				return;
 			}
 		}
+
+        private void textBox_FileName_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                // button_Rename_Click(new object(), new RoutedEventArgs());
+                return;
+            }
+        }
 
 		private void textBox_Tags_KeyUp(object sender, KeyEventArgs e)
 		{
@@ -484,68 +543,5 @@ where id = {1};";
 
         #endregion
 
-        private void textBox_FileName_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                // button_Rename_Click(new object(), new RoutedEventArgs());
-                return;
-            }
-        }
-
-        /// <summary>
-        /// [ Rename ]
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void button_Rename_Click(object sender, RoutedEventArgs e)
-        {
-            PictureInfo pi = this.listView_Picts.SelectedItem as PictureInfo;
-            if (pi == null)
-            {
-                return;
-            }
-
-            string newDisplayName = this.textBox_FileName.Text.Trim();
-            string newFileName = newDisplayName + PmUtil.GetExtention(pi.FileName);
-
-            string message = @"Rename '{0}' -> '{1}' ?";
-            message = string.Format(message,
-                pi.DisplayName,
-                newDisplayName);
-
-            MessageBoxResult  mbr = MessageBox.Show(message,
-                "Confirm.",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Question);
-            if (mbr != MessageBoxResult.Yes)
-            {
-                return;
-            }
-
-            try
-            {
-                string filePathDest = System.IO.Path.Combine(PmConf.Config.DirectoryPath, pi.Directory, newFileName);
-                File.Move(pi.FilePath, filePathDest);
-                updateFileName(pi.Id, newFileName, newDisplayName);
-            }
-            catch (Exception ex)
-            {
-                PmUtil.ShowError(ex);
-            }
-
-            MessageBox.Show("Renamed.",
-                "Information.",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information);
-
-            string[] keywords = this.textBox_Search.Text.Trim().Split(' ');
-            search(keywords);
-        }
-
-        private void listView_Picts_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            this.listView_Picts.SelectedIndex = -1;
-        }
     }
 }

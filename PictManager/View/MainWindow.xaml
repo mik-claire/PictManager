@@ -37,7 +37,7 @@
 
         <!-- Row 1 -->
         <ListView x:Name="listView_Picts" Margin="10,10,10.333,10" SelectionMode="Extended" SelectionChanged="listView_Picts_SelectionChanged" MouseDoubleClick="listView_Picts_MouseDoubleClick"
-                  ItemsSource="{Binding}" Grid.Row="1" Grid.ColumnSpan="4" MouseLeftButtonDown="listView_Picts_MouseLeftButtonDown" >
+                  ItemsSource="{Binding}" Grid.Row="1" Grid.ColumnSpan="4" >
             <ListView.View>
                 <l:ImageView />
             </ListView.View>
