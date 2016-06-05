@@ -53,6 +53,7 @@
                 Click="button_TagSet_Click" />
 
         <!-- Row 1 -->
+        
         <ListView x:Name="listView_Picts" Grid.Row="1" Grid.ColumnSpan="4" Margin="10,10,10.333,10"
                   SelectionMode="Extended" ItemsSource="{Binding}" 
                   SelectionChanged="listView_Picts_SelectionChanged"
