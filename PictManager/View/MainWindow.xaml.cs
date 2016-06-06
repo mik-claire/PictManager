@@ -76,7 +76,7 @@ namespace PictManager
                 foreach (var rec in dbData)
                 {
                     if (rec.FileName != fi.Name ||
-                        rec.Directory != fi.FullName.Substring(PmConf.Config.DirectoryPath.Length + 1, fi.FullName.Length - PmConf.Config.DirectoryPath.Length - fi.Name.Length - 1))
+                        rec.Directory != PmUtil.GetPictureDirectory(fi.FullName))
                     {
                         continue;
                     }
@@ -288,7 +288,7 @@ namespace PictManager
 		{
 			if (e.Key == Key.Enter)
 			{
-				button_Search_Click(new object(), new RoutedEventArgs());
+				// button_Search_Click(new object(), new RoutedEventArgs());
 				return;
 			}
 		}
@@ -306,7 +306,7 @@ namespace PictManager
 		{
 			if (e.Key == Key.Enter)
 			{
-				button_TagSet_Click(new object(), new RoutedEventArgs());
+				// button_TagSet_Click(new object(), new RoutedEventArgs());
 				return;
 			}
 		}
@@ -324,7 +324,7 @@ namespace PictManager
                 return;
             }
 
-            string ext = pi.FileName.Substring(pi.FileName.Length - 4, 4).ToUpper();
+            string ext = PmUtil.GetExtention(pi.FileName).ToUpper();
             if (ext == ".SAI" &&
                 !string.IsNullOrEmpty(PmConf.Config.SaiProgramPath))
             {
