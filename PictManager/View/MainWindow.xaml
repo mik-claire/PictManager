@@ -15,9 +15,9 @@
             <RowDefinition/>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
-        
+
         <!-- Row 0 -->
-        
+
         <!-- Search -->
         <TextBox x:Name="textBox_Search" Margin="10,10,0,0" Height="23" Width="245"
                  HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="Wrap"
@@ -33,27 +33,32 @@
                      HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
         <!-- Rename -->
-        <Label Content="FileName" Grid.Column="2" Margin="10,49,0,0"
+        <Label Content="FileName" Grid.Column="2" Margin="10,15,0,0"
                HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox_FileName"  Grid.Column="2" Width="245" Height="23" Margin="10,75,0,0"
+        <TextBox x:Name="textBox_FileName"  Grid.Column="2" Width="245" Height="23" Margin="10,41,0,0"
                  HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="Wrap"
                  KeyUp="textBox_FileName_KeyUp"/>
-        <Button x:Name="button_Rename" Content="Rename" Grid.Column="3" Margin="10,77,0,0" Width="69"
+        <Button x:Name="button_Rename" Content="Rename" Grid.Column="3" Margin="10,43,0,0" Width="69"
                 HorizontalAlignment="Left" VerticalAlignment="Top"
                 Click="button_Rename_Click" />
-        
+
         <!-- Tag Set -->
-        <Label Content="Tags" Grid.Column="2" Margin="10,105,0,0"
+        <Label Content="Tags" Grid.Column="2" Margin="10,71,0,0"
                HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox_Tags" Grid.Column="2" Margin="10,131,0,0" Height="23" Width="245"
+        <TextBox x:Name="textBox_Tags" Grid.Column="2" Margin="10,97,0,0" Height="23" Width="245"
                  HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="Wrap"
                  KeyUp="textBox_Tags_KeyUp"/>
-        <Button x:Name="button_TagSet" Content="Tag Set" Grid.Column="3" Margin="10,132,0,0" Width="69"
+        <Button x:Name="button_TagSet" Content="Tag Set" Grid.Column="3" Margin="10,98,0,0" Width="69"
                 HorizontalAlignment="Left" VerticalAlignment="Top"
                 Click="button_TagSet_Click" />
 
-        <!-- Row 1 -->
+        <!-- Move -->
+        <Button x:Name="button_Move" Content="Move" Grid.Column="3" Margin="10,131,0,0" Width="69"
+        	HorizontalAlignment="Left" VerticalAlignment="Top"
+        	Click="button_Move_Click" />
         
+        <!-- Row 1 -->
+
         <ListView x:Name="listView_Picts" Grid.Row="1" Grid.ColumnSpan="4" Margin="10,10,10.333,10"
                   SelectionMode="Extended" ItemsSource="{Binding}" 
                   SelectionChanged="listView_Picts_SelectionChanged"

@@ -337,6 +337,22 @@ namespace PictManager
             w.Show();
         }
 
+        /// <summary>
+        /// [ Move ]
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button_Move_Click(object sender, RoutedEventArgs e)
+        {
+            PictureInfo pi = this.listView_Picts.SelectedItem as PictureInfo;
+            if (pi == null)
+            {
+                return;
+            }
+
+
+        }
+
         #endregion
 
         #region DB Control
