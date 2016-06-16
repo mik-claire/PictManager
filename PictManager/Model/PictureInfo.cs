@@ -28,6 +28,15 @@ namespace PictManager.Model
         
         #endregion
 
+        public string TagsLine
+        {
+            get
+            {
+                string tags = string.Join(" ", this.Tags); ;
+                return tags;
+            }
+        }
+
         public DateTime Modified { get; set; }
         public string DisplayModified
         {
