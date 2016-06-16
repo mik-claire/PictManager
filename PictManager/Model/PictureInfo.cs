@@ -28,6 +28,8 @@ namespace PictManager.Model
         
         #endregion
 
+        public DateTime Modified { get; set; }
+
         public bool IsNewPicture { get; set; }
 
         public string FilePath

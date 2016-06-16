@@ -31,6 +31,19 @@
                      HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <RadioButton x:Name="radioButton_Tags" Content="タグ" Margin="102,38,0,0"
                      HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <ComboBox x:Name="comboBox_Sort" Margin="10,131,0,0" Width="120"
+                  HorizontalAlignment="Left" VerticalAlignment="Top"
+                  SelectionChanged="comboBox_SortOrder_SelectionChanged">
+            <ComboBoxItem Content="ファイル名"/>
+            <ComboBoxItem Content="拡張子"/>
+            <ComboBoxItem Content="更新日時"/>
+        </ComboBox>
+        <ComboBox x:Name="comboBox_Order" Margin="150,131,0,0" Width="70"
+        	HorizontalAlignment="Left" VerticalAlignment="Top" SelectedIndex="0"
+        	SelectionChanged="comboBox_SortOrder_SelectionChanged">
+            <ComboBoxItem Content="昇順"/>
+            <ComboBoxItem Content="降順"/>
+        </ComboBox>
 
         <!-- Rename -->
         <Label Content="FileName" Grid.Column="2" Margin="10,15,0,0"

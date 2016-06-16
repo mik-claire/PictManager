@@ -20,6 +20,7 @@ using System.Windows.Shapes;
 using System.Data.SQLite;
 using PictManager.View;
 using System.Diagnostics;
+using System.Collections.ObjectModel;
 
 namespace PictManager
 {
@@ -28,9 +29,18 @@ namespace PictManager
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ObservableCollection<PictureInfo> pictureList = new ObservableCollection<PictureInfo>();
+
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = this.pictureList;
+        }
+
+        private void setDataContext(ObservableCollection<PictureInfo> list)
+        {
+            this.pictureList = list;
+            this.DataContext = this.pictureList;
         }
 
         private void load()
@@ -42,16 +52,19 @@ namespace PictManager
                 Directory.CreateDirectory(PmConf.Config.DirectoryPath);
             }
 
-            List<PictureInfo> infoList = new List<PictureInfo>();
+            ObservableCollection<PictureInfo> infoList = new ObservableCollection<PictureInfo>();
 
             DirectoryInfo di = new DirectoryInfo(PmConf.Config.DirectoryPath);
             load2(di, infoList, dbData);
 
             insert(infoList);
-            this.DataContext = infoList;
+            setDataContext(infoList);
+
+            this.comboBox_Sort.SelectedIndex = 0;
+            // this.comboBox_Order.SelectedIndex = 0;
         }
 
-        private void load2(DirectoryInfo di, List<PictureInfo> infoList, List<PictureInfo> dbData)
+        private void load2(DirectoryInfo di, ObservableCollection<PictureInfo> infoList, ObservableCollection<PictureInfo> dbData)
         {
             foreach (DirectoryInfo subDi in di.GetDirectories())
             {
@@ -87,6 +100,7 @@ namespace PictManager
                 }
                 if (!isNewPicture)
                 {
+                    hitRec.Modified = fi.LastWriteTime;
                     infoList.Add(hitRec);
                     continue;
                 }
@@ -97,6 +111,7 @@ namespace PictManager
                 pi.DisplayName = PmUtil.RemoveExtention(fi.Name);
                 pi.Directory = PmUtil.GetPictureDirectory(fi.FullName);
                 pi.IsNewPicture = true;
+                pi.Modified = fi.LastWriteTime;
                 infoList.Add(pi);
             }
         }
@@ -142,7 +157,7 @@ namespace PictManager
                 Directory.CreateDirectory(PmConf.Config.DirectoryPath);
             }
 
-            this.DataContext = dbData;
+            setDataContext(dbData);
         }
 
         private void opnSai(string saiPath, string openFilePath)
@@ -156,6 +171,56 @@ namespace PictManager
                 p.StartInfo = info;
                 p.Start();
             }
+        }
+
+        private ObservableCollection<PictureInfo> sort(ObservableCollection<PictureInfo> list, int sortKey, bool isAsc)
+        {
+            // ObservableCollection<PictureInfo> sortedList = new ObservableCollection<PictureInfo>();
+            ObservableCollection<PictureInfo> sortedList = null;
+            switch (sortKey)
+            {
+                case 0:
+                    if (isAsc)
+                    {
+                        sortedList =
+                            new ObservableCollection<PictureInfo>(list.OrderBy(n => n.DisplayName));
+                        return sortedList;
+                    }
+                    else
+                    {
+                        sortedList = new ObservableCollection<PictureInfo>(list.OrderByDescending(n => n.DisplayName));
+                    }
+                    break;
+                case 1:
+                    if (isAsc)
+                    {
+                        sortedList = new ObservableCollection<PictureInfo>(list.OrderBy(n => PmUtil.GetExtention(n.DisplayName)));
+                    }
+                    else
+                    {
+                        sortedList = new ObservableCollection<PictureInfo>(list.OrderByDescending(n => PmUtil.GetExtention(n.DisplayName)));
+                    }
+                    break;
+                case 2:
+                    if (isAsc)
+                    {
+                        sortedList = new ObservableCollection<PictureInfo>(list.OrderBy(n => n.Modified));
+                    }
+                    else
+                    {
+                        sortedList = new ObservableCollection<PictureInfo>(list.OrderByDescending(n => n.Modified));
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            if (sortedList == null)
+            {
+                return list;
+            }
+
+            return sortedList;
         }
 
         #region Event Handler
@@ -353,11 +418,30 @@ namespace PictManager
 
         }
 
+        private void comboBox_SortOrder_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (this.comboBox_Sort.SelectedIndex < 0)
+            {
+                return;
+            }
+            if (this.comboBox_Order.SelectedIndex < 0)
+            {
+                return;
+            }
+
+
+            int selectedIndex = this.comboBox_Sort.SelectedIndex;
+            bool isAsc = this.comboBox_Order.SelectedIndex == 0 ? true : false;
+
+            ObservableCollection<PictureInfo> sortedList = sort(this.pictureList, selectedIndex, isAsc);
+            setDataContext(sortedList);
+        }
+
         #endregion
 
         #region DB Control
 
-        private List<PictureInfo> loadDB(string filePath, string cond)
+        private ObservableCollection<PictureInfo> loadDB(string filePath, string cond)
         {
             string sql = @"
 select
@@ -365,7 +449,7 @@ select
 from
   data";
 
-            List<PictureInfo> infoList = new List<PictureInfo>();
+            ObservableCollection<PictureInfo> infoList = new ObservableCollection<PictureInfo>();
 
             SQLiteConnection cn = null;
             SQLiteCommand cmd = null;
@@ -425,7 +509,7 @@ where
             return infoList;
         }
 
-        private void insert(List<PictureInfo> piList)
+        private void insert(ObservableCollection<PictureInfo> piList)
         {
             SQLiteConnection cn = null;
             SQLiteCommand cmd = null;
