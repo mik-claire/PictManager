@@ -5,80 +5,81 @@
         Title="PictManager" Height="525" Width="715"
         Loaded="Window_Loaded">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition/>
             <RowDefinition Height="2*"/>
+            <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
 
         <!-- Row 0 -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <!-- Search -->
+            <TextBox x:Name="textBox_Search" Grid.Column="0" Margin="10,10,0,0" Height="23" Width="245"
+                     HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="Wrap"
+                     KeyUp="textBox_Search_KeyUp"/>
+            <Button x:Name="button_Search" Content="Search" Margin="275,9,0,0" Width="69"
+                    HorizontalAlignment="Left" VerticalAlignment="Top"
+                    Click="button_Search_Click" Height="24"/>
+            <RadioButton x:Name="radioButton_FileName" Content="ファイル名" Margin="10,38,0,0" IsChecked="True"
+                     HorizontalAlignment="Left" VerticalAlignment="Top" Height="18" Width="76"/>
+            <RadioButton x:Name="radioButton_DisplayName" Content="表示名" Margin="124,38,0,0" Visibility="Hidden"
+                     HorizontalAlignment="Left" VerticalAlignment="Top" Height="18" Width="52"/>
+            <RadioButton x:Name="radioButton_Tags" Content="タグ" Margin="102,38,0,0"
+                     HorizontalAlignment="Left" VerticalAlignment="Top" Height="18" Width="40"/>
+            <ComboBox x:Name="comboBox_Sort" Margin="10,61,0,0" Width="120"
+                      HorizontalAlignment="Left" VerticalAlignment="Top"
+                      SelectionChanged="comboBox_SortOrder_SelectionChanged" Height="24">
+                <ComboBoxItem Content="ファイル名"/>
+                <ComboBoxItem Content="拡張子"/>
+                <ComboBoxItem Content="更新日時"/>
+            </ComboBox>
+            <ComboBox x:Name="comboBox_Order" Margin="150,61,0,0" Width="70"
+                      HorizontalAlignment="Left" VerticalAlignment="Top" SelectedIndex="0"
+                      SelectionChanged="comboBox_SortOrder_SelectionChanged" Height="24">
+                <ComboBoxItem Content="昇順"/>
+                <ComboBoxItem Content="降順"/>
+            </ComboBox>
 
-        <!-- Search -->
-        <TextBox x:Name="textBox_Search" Margin="10,10,0,0" Height="23" Width="245"
-                 HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="Wrap"
-                 KeyUp="textBox_Search_KeyUp"/>
-        <Button x:Name="button_Search" Content="Search" Grid.Column="1" Margin="10,11,0,0" Width="69"
-                HorizontalAlignment="Left" VerticalAlignment="Top"
-                Click="button_Search_Click"/>
-        <RadioButton x:Name="radioButton_FileName" Content="ファイル名" Margin="10,38,0,0" IsChecked="True"
-                     HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <RadioButton x:Name="radioButton_DisplayName" Content="表示名" Margin="124,38,0,0" Visibility="Hidden"
-                     HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <RadioButton x:Name="radioButton_Tags" Content="タグ" Margin="102,38,0,0"
-                     HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <ComboBox x:Name="comboBox_Sort" Margin="10,131,0,0" Width="120"
-                  HorizontalAlignment="Left" VerticalAlignment="Top"
-                  SelectionChanged="comboBox_SortOrder_SelectionChanged">
-            <ComboBoxItem Content="ファイル名"/>
-            <ComboBoxItem Content="拡張子"/>
-            <ComboBoxItem Content="更新日時"/>
-        </ComboBox>
-        <ComboBox x:Name="comboBox_Order" Margin="150,131,0,0" Width="70"
-        	HorizontalAlignment="Left" VerticalAlignment="Top" SelectedIndex="0"
-        	SelectionChanged="comboBox_SortOrder_SelectionChanged">
-            <ComboBoxItem Content="昇順"/>
-            <ComboBoxItem Content="降順"/>
-        </ComboBox>
+            <!-- Rename -->
+            <Label Content="FileName" Grid.Column="1" Margin="10,7,0,0"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" Height="28" Width="64"/>
+            <TextBox x:Name="textBox_FileName"  Grid.Column="1" Width="245" Height="23" Margin="10,33,0,0"
+                     HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="Wrap"
+                     KeyUp="textBox_FileName_KeyUp"/>
+            <Button x:Name="button_Rename" Content="Rename" Grid.Column="1" Margin="275,32,0,0" Width="69"
+                    HorizontalAlignment="Left" VerticalAlignment="Top"
+                    Click="button_Rename_Click" Height="24" />
 
-        <!-- Rename -->
-        <Label Content="FileName" Grid.Column="2" Margin="10,15,0,0"
-               HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox_FileName"  Grid.Column="2" Width="245" Height="23" Margin="10,41,0,0"
-                 HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="Wrap"
-                 KeyUp="textBox_FileName_KeyUp"/>
-        <Button x:Name="button_Rename" Content="Rename" Grid.Column="3" Margin="10,43,0,0" Width="69"
-                HorizontalAlignment="Left" VerticalAlignment="Top"
-                Click="button_Rename_Click" />
+            <!-- Tag Set -->
+            <Label Content="Tags" Grid.Column="1" Margin="10,57,0,0"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" Height="28" Width="36"/>
+            <TextBox x:Name="textBox_Tags" Grid.Column="1" Margin="10,83,0,0" Height="23" Width="245"
+                     HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="Wrap"
+                     KeyUp="textBox_Tags_KeyUp"/>
+            <Button x:Name="button_TagSet" Content="Tag Set" Grid.Column="1" Margin="275,84,0,0" Width="69"
+                    HorizontalAlignment="Left" VerticalAlignment="Top"
+                    Click="button_TagSet_Click" Height="24" />
 
-        <!-- Tag Set -->
-        <Label Content="Tags" Grid.Column="2" Margin="10,71,0,0"
-               HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox_Tags" Grid.Column="2" Margin="10,97,0,0" Height="23" Width="245"
-                 HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="Wrap"
-                 KeyUp="textBox_Tags_KeyUp"/>
-        <Button x:Name="button_TagSet" Content="Tag Set" Grid.Column="3" Margin="10,98,0,0" Width="69"
-                HorizontalAlignment="Left" VerticalAlignment="Top"
-                Click="button_TagSet_Click" />
+            <!-- Move -->
+            <Button x:Name="button_Move" Content="Move" Grid.Column="1" Margin="275,113,0,0" Width="69"
+                    HorizontalAlignment="Left" VerticalAlignment="Top"
+                    Click="button_Move_Click" Height="24" />
 
-        <!-- Move -->
-        <Button x:Name="button_Move" Content="Move" Grid.Column="3" Margin="10,131,0,0" Width="69"
-        	HorizontalAlignment="Left" VerticalAlignment="Top"
-        	Click="button_Move_Click" />
-        
+        </Grid>
+
         <!-- Row 1 -->
-
-        <ListView x:Name="listView_Picts" Grid.Row="1" Grid.ColumnSpan="4" Margin="10,10,10.333,10"
-                  SelectionMode="Extended" ItemsSource="{Binding}" 
-                  SelectionChanged="listView_Picts_SelectionChanged"
-                  MouseDoubleClick="listView_Picts_MouseDoubleClick">
-            <ListView.View>
-                <l:ImageView />
-            </ListView.View>
-        </ListView>
+        <Grid Grid.Row="1">
+            <ListView x:Name="listView_Picts" Grid.Row="1" Grid.ColumnSpan="4" Margin="5"
+                      SelectionMode="Extended" ItemsSource="{Binding}" 
+                      SelectionChanged="listView_Picts_SelectionChanged"
+                      MouseDoubleClick="listView_Picts_MouseDoubleClick">
+                <ListView.View>
+                    <l:ImageView />
+                </ListView.View>
+            </ListView>
+        </Grid>
     </Grid>
 </Window>
