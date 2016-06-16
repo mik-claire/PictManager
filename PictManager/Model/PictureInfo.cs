@@ -29,6 +29,14 @@ namespace PictManager.Model
         #endregion
 
         public DateTime Modified { get; set; }
+        public string DisplayModified
+        {
+            get
+            {
+                string doc = this.Modified.ToString("yyyy/MM/dd HH:mm:ss");
+                return doc;
+            }
+        }
 
         public bool IsNewPicture { get; set; }
 

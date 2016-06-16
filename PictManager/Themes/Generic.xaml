@@ -41,7 +41,9 @@
                                       Width="{Binding PreferredWidth}" Height="{Binding PreferredHeight}"/>
                             </Grid>
                             <TextBlock Text="{Binding DisplayName}" TextWrapping="Wrap" HorizontalAlignment="Center" 
-                                       FontSize="12" Name="PictureInfo" Foreground="Black" Margin="0,0,0,2"/>
+                                       FontSize="12" Name="Title" Foreground="Black" Margin="0,0,0,2"/>
+                            <TextBlock Text="{Binding DisplayModified}" TextWrapping="Wrap" HorizontalAlignment="Center" 
+                                       FontSize="12" Name="Modified" Foreground="Black" Margin="0,0,0,2"/>
                         </StackPanel>
                     </Border>
                 </DataTemplate>
